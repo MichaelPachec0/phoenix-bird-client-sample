@@ -14,6 +14,10 @@ RUN apt-get install -y inotify-tools
 RUN curl -sL https://deb.nodesource.com/setup_${NODEJS_VERSION} | bash
 RUN apt-get install -y nodejs
 
+#Switch users
+RUN useradd -r -u 1000 -g app app
+USER app
+
 # Phoenix
 RUN mix local.hex --force
 RUN mix archive.install --force hex phx_new #{PHOENIX_VERSION}
