@@ -14,8 +14,15 @@ RUN apt-get install -y inotify-tools
 RUN curl -sL https://deb.nodesource.com/setup_${NODEJS_VERSION} | bash
 RUN apt-get install -y nodejs
 
+RUN groupadd -g 2000 appgroup && useradd -r -u 2001 -g 2000 -b /app app
+
+# App Directory
+ENV APP_HOME /app
+RUN mkdir -p $APP_HOME
+WORKDIR $APP_HOME
+RUN chown 2001:2000 /app
+
 #Switch users
-RUN useradd -r -u 1000 -g app app
 USER app
 
 # Phoenix
@@ -23,16 +30,14 @@ RUN mix local.hex --force
 RUN mix archive.install --force hex phx_new #{PHOENIX_VERSION}
 RUN mix local.rebar --force
 
-# App Directory
-ENV APP_HOME /app
-RUN mkdir -p $APP_HOME
-WORKDIR $APP_HOME
+
 
 # App Port
 EXPOSE 4000
-COPY ./src /app
+COPY . /app
 # get deps
-# RUN mix deps.get
+RUN mix deps.get
+RUN mix ecto.migrate
 # RUN mix ecto.setup
 
 
