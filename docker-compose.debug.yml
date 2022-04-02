@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  phoenixtwitterexample1:
+    image: phoenixtwitterexample1
+    build:
+      context: .
+      dockerfile: ./Dockerfile
