@@ -6,9 +6,10 @@ import Config
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :chirp, Chirp.Repo,
-  # username: "postgres",
-  # password: "postgres",
-  url: System.get_env["DATABASE_URL"],
+  username: "postgres",
+  password: "postgres",
+  hostname: "db",
+  # url: System.get_env["DATABASE_URL"],
   database: "chirp_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 10

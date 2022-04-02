@@ -2,9 +2,10 @@ import Config
 
 # Configure your database
 config :chirp, Chirp.Repo,
+  adapter: Ecto.Adapters.Postgres,
   # username: "postgres",
   # password: "postgres",
-  # hostname: "localhost",
+  # hostname: System.get_env["POSTGRES_HOST"],
   url: System.get_env["DATABASE_URL"],
   database: "chirp_dev",
   show_sensitive_data_on_connection_error: true,

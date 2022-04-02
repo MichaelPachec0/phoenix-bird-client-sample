@@ -34,10 +34,10 @@ RUN mix local.rebar --force
 
 # App Port
 EXPOSE 4000
-COPY . /app
+COPY --chown=2001:2000 . /app
 # get deps
 RUN mix deps.get
-RUN mix ecto.migrate
+# RUN mix ecto.migrate
 # RUN mix ecto.setup
 
 
