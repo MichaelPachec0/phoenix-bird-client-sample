@@ -1,8 +1,7 @@
 FROM elixir:1.13.1
 
 # Build Args
-#ARG PHOENIX_VERSION=1.6.6
-ARG PHOENIX_VERSION=
+ARG PHOENIX_VERSION=1.6.6
 ARG NODEJS_VERSION=16.x
 
 # Local ENV
@@ -23,13 +22,13 @@ RUN apt-get install -y nodejs
 
 # App Directory
 ENV APP_HOME /app
-RUN mkdir -p $APP_HOME && mkdir -p /app_home chown 2001:2000 /app && chown 2001:2000 /app_home
+RUN mkdir -p $APP_HOME && mkdir -p /app_home && chown 2001:2000 /app && chown 2001:2000 /app_home
 WORKDIR $APP_HOME
 
 # Create User
 RUN groupadd -g 2000 appgroup && useradd -r -u 2001 -g 2000 -b /app_home app
 
-#Switch users
+# De-Escalate Priviledges
 USER app
 
 # Preinstall esbuild
