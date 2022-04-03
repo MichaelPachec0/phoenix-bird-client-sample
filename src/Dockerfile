@@ -5,9 +5,11 @@ ARG PHOENIX_VERSION=1.6.6
 ARG NODEJS_VERSION=16.x
 
 # Local ENV
-ENV MIX_HOME=/.deps/.mix
+#ENV MIX_HOME=/.deps/.mix
 ENV HEX_HOME=/.deps/.hex
-ENV MIX_BUILD_PATH=/.deps/_build
+ENV MIX_BUILD_ROOT=/.deps/_build
+ENV MIX_DEPS_PATH=/.deps/mix_deps
+ENV MIX_INSTALL_DIR=/.deps/mix_install
 # Apt
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y apt-utils
