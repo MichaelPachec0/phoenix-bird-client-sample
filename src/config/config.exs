@@ -14,7 +14,6 @@ config :chirp,
 config :chirp, ChirpWeb.Endpoint,
   url: [host: "localhost"],
   server: true,
-  #url:[ip:{0,0,0,0}],
   render_errors: [view: ChirpWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Chirp.PubSub,
   live_view: [signing_salt: "OqhLJcgs"]
