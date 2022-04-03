@@ -13,6 +13,7 @@ config :chirp,
 # Configures the endpoint
 config :chirp, ChirpWeb.Endpoint,
   url: [host: "localhost"],
+  server: true,
   render_errors: [view: ChirpWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Chirp.PubSub,
   live_view: [signing_salt: "OqhLJcgs"]

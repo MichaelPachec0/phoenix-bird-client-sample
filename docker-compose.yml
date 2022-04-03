@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  app:
+    image: app
+    build:
+      context: ./src
+      dockerfile: ./Dockerfile
+    ports:
+      - 4000:4000
+    volumes:
+      - ./src:/app:z
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=db
+        #- MIX_ENV=dev
+    #env_file:
+    #  - .env
+    depends_on:
+      - db
+    dns:
+      - 8.8.8.8
+      - 1.0.0.1
+  db:
+    image: postgres:12
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
