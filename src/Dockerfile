@@ -1,15 +1,16 @@
 FROM elixir:1.13.1
 
 # Build Args
-ARG PHOENIX_VERSION=1.6.6
+#ARG PHOENIX_VERSION=1.6.6
+ARG PHOENIX_VERSION=
 ARG NODEJS_VERSION=16.x
 
 # Local ENV
-#ENV MIX_HOME=/.deps/.mix
-ENV HEX_HOME=/.deps/.hex
-ENV MIX_BUILD_ROOT=/.deps/_build
-ENV MIX_DEPS_PATH=/.deps/mix_deps
-ENV MIX_INSTALL_DIR=/.deps/mix_install
+#ENV MIX_HOME=/app_home/.mix
+#ENV HEX_HOME=/app_home/.hex
+ENV MIX_BUILD_ROOT=/app_home/_build
+ENV MIX_DEPS_PATH=/app_home/mix_deps
+ENV MIX_INSTALL_DIR=/app_home/mix_install
 # Apt
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y apt-utils
@@ -19,13 +20,14 @@ RUN apt-get install -y inotify-tools
 # Nodejs
 RUN curl -sL https://deb.nodesource.com/setup_${NODEJS_VERSION} | bash
 RUN apt-get install -y nodejs
-RUN groupadd -g 2000 appgroup && useradd -r -u 2001 -g 2000 -b /.deps app
 
 # App Directory
 ENV APP_HOME /app
-RUN mkdir -p $APP_HOME && mkdir /.deps
+RUN mkdir -p $APP_HOME && mkdir -p /app_home chown 2001:2000 /app && chown 2001:2000 /app_home
 WORKDIR $APP_HOME
-RUN chown 2001:2000 /app && chown 2001:2000 /.deps
+
+# Create User
+RUN groupadd -g 2000 appgroup && useradd -r -u 2001 -g 2000 -b /app_home app
 
 #Switch users
 USER app
